@@ -70,6 +70,8 @@
       <button id="search-button" onclick="getVideos()">Cari</button>
     </div>
 
+    <iframe id="player" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+
     <ul id="video-list"></ul>
   </div>
 
@@ -77,7 +79,7 @@
     // Inisialisasi API YouTube Data
     function init() {
       gapi.client.init({
-        'apiKey': 'AIzaSyAPO4SBbQllcuE0m7BfGFRXuj0CoZGSU-Q',
+        'apiKey': 'YOUR_API_KEY',
         'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest'],
       }).then(function() {
         console.log('API berhasil diinisialisasi');
@@ -127,6 +129,10 @@
           a.href = videoLink;
           a.target = '_blank';
           a.textContent = videoTitle;
+          a.addEventListener('click', function(event) {
+            event.preventDefault();
+            playVideo(videoId);
+          });
 
           li.appendChild(a);
           videoListElement.appendChild(li);
