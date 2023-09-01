@@ -69,7 +69,7 @@
       <input type="text" id="search-input">
       <button id="search-button" onclick="getVideos()">Cari</button>
     </div>
-  
+
     <ul id="video-list"></ul>
   </div>
 
@@ -84,6 +84,12 @@
       }, function(error) {
         console.log('Terjadi kesalahan saat menginisialisasi API: ' + error);
       });
+    }
+
+    // Memutar video
+    function playVideo(videoId) {
+      var playerElement = document.getElementById('player');
+      playerElement.src = 'https://www.youtube.com/embed/' + videoId;
     }
 
     // Mengambil video berdasarkan query pencarian
@@ -112,12 +118,18 @@
 
         // Menampilkan daftar video yang sesuai
         for (var i = 0; i < videoList.length; i++) {
-          var videoItem = document.createElement('li');
-          var videoLink = document.createElement('a');
-          videoLink.href = 'https://www.youtube.com/watch?v=' + videoList[i].id.videoId;
-          videoLink.textContent = videoList[i].snippet.title;
-          videoItem.appendChild(videoLink);
-          videoListElement.appendChild(videoItem);
+          var videoId = videoList[i].id.videoId;
+          var videoTitle = videoList[i].snippet.title;
+          var videoLink = 'https://www.youtube.com/watch?v=' + videoId;
+
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = videoLink;
+          a.target = '_blank';
+          a.textContent = videoTitle;
+
+          li.appendChild(a);
+          videoListElement.appendChild(li);
         }
       }, function(error) {
         console.log('Terjadi kesalahan saat mengambil video: ' + error);
@@ -127,6 +139,5 @@
     // Memuat API YouTube Data
     gapi.load('client', init);
   </script>
-  <script src="https://apis.google.com/js/client.js?onload=init"></script>
 </body>
 </html>
