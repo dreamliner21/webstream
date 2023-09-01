@@ -103,9 +103,7 @@
         part: 'snippet',
         maxResults: 10,
         type: 'video',
-      };
-
-      if (searchOption === 'title') {
+        if (searchOption === 'title') {
         searchParams.q = searchQuery;
       } else if (searchOption === 'channel') {
         searchParams.forUsername = searchQuery;
